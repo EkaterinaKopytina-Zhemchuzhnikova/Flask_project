@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="static/css/style4.css"/>
+    <title>{{user}}</title>
+{% endblock %}
+{% block content %}
+<body>
+<div class="navbar">
+  <a href="#home">Записи</a>
+  <a href="#statistics">Статистика</a>
+  <div class="dopinfo">
+    <button class="dopinfobtn">Дополнительная информация
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dopinfo-content">
+      <a href="/info">О сайте</a>
+      <a href="#">Помощь</a>
+        <a href="#">Выход</a>
+    </div>
+  </div>
+    <a href="#contact">Контакты</a>
+</div>
+<p class="hello">
+    Здравствуйте, {{ user }}! Рады снова Вас видеть!
+</p>
+</body>
+{% endblock %}

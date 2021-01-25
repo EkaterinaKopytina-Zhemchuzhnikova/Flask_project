@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="static/css/style4.css"/>
+{% endblock %}
+{% block content %}
+<body>
+<div class="navbar">
+  <a href="#home">Записи</a>
+  <a href="#statistics">Статистика</a>
+  <div class="dopinfo">
+    <button class="dopinfobtn">Дополнительная информация
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dopinfo-content">
+      <a href="/info">О сайте</a>
+      <a href="#">Помощь</a>
+        <a href="#">Выход</a>
+    </div>
+  </div>
+    <a href="#contact">Контакты</a>
+</div>
+
+<div class="my_map"><img class="map" width="500" height="350" src="static/img/map.png">
+    {{ info_text }}
+  <p>Ознакомится с достумными лечебными учреждениями можно на карте справа. Желаем удачи!</p>
+</div>
+</body>
+{% endblock %}
