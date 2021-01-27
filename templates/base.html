@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <main role="main" class="container">
+        <link rel="stylesheet" href="static/css/style4.css"/>
         {% block head %}{% endblock %}
     </main>
-        <title>{{ title }}</title>
-    </head>
-<!-- Begin page content -->
-<main role="main" class="container">
-    {% block content %}{% endblock %}
-</main>
+    <title>{{ title }}</title>
+</head>
+
+<body>
+<div class="navbar">
+    <a href="/login">Войти</a>
+    <div class="dopinfo">
+        <button class="dopinfobtn">Дополнительная информация
+            <i class="dop_menu"></i>
+        </button>
+        <div class="dopinfo-content">
+            <a href="/info">О сайте</a>
+            <a href="/contact">Контакты</a>
+            <a href="/proposal">Связаться с нами</a>
+        </div>
+    </div>
+</div>
+        <main role="main" class="container">
+            {% block content %}{% endblock %}
+        </main>
 </body>
 </html>

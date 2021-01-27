@@ -1,9 +1,9 @@
-from flask_login import LoginManager, login_user, login_required, logout_user
 from flask import Flask, render_template, redirect, request
 from data import db_session
 from data.patients_and_snils import LoginPatients
 from data.login_form import LoginForm
-# import data.search_and_show_hospitals
+from data.proposal import Proposal
+from data.search_and_show_hospitals import search, show
 
 db_session.global_init("db/registry_base.sqlite")
 
@@ -29,21 +29,48 @@ def login():
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
 
 
-@app.route('/success')
-def success():
-    return render_template('menu.html')
-
 @app.route('/info')
 def info():
     with open('static/files/info_file.txt', 'r', encoding="utf-8") as f:
         info_about = f.read()
-    return render_template("info.html", info_text=info_about)
+    return render_template("info.html", info_text=info_about, image_hospitals="static/img/map.png")
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact_me():
+    return render_template("contact.html", dep_adr=ADRESS_DEPARTMENT, dep_img="static/img/map1.png")
+
+
+@app.route('/proposal')
+def proposal_me():
+    form = Proposal()
+    return render_template("register_me.html", form=form)
+
 
 @app.route('/logout')
-@login_required
 def logout():
-    logout_user()
     return redirect("/")
+
+
+def get_image_of_all_hospitals():
+    hospitals = ["Лиски, ул. Сеченова, 24", "Воронеж, ул. Красноармейская, 19", "Воронеж, ул. Героев Сибиряков, 37"]
+    pt_list = search(hospitals)
+    map_file = "static/img/map.png"
+    with open(map_file, "wb") as file:
+        file.write(show(pt_list).content)
+
+
+ADRESS_DEPARTMENT = 'Воронеж, ул. Красноармейская, 52'
+
+
+def get_image_of_department():
+    pt = search([ADRESS_DEPARTMENT])
+    map_file = "static/img/map1.png"
+    with open(map_file, "wb") as file:
+        file.write(show(pt, scale="0.003,0.003").content)
+
 
 if __name__ == '__main__':
     app.run()
+    get_image_of_all_hospitals()
+    get_image_of_department()
