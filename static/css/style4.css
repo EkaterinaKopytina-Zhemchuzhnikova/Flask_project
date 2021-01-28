@@ -1,6 +1,27 @@
+.title {
+    font-size: 20px;
+    text-align: center;
+    width: 400px;
+    background-color: #dddddd;
+}
+.ordinary {
+    font-size: 20px;
+    text-align: center;
+    background-color: #eeeeff;
+}
+
 .map {
     float: right; /* Выравнивание по правому краю  */
     margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+}
+
+.text_info{
+    margin: 20px 0 7px 7px;
+    padding: 5px;
+    text-indent: 20px;
+    line-height: 1.5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
 }
 .my_map {
     margin: 20px 0 7px 7px;
@@ -8,7 +29,7 @@
     text-indent: 20px;
     line-height: 1.5;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
 }
 .navbar {
     overflow: hidden;
@@ -84,3 +105,17 @@ h2 {
    text-align: center;
 }
 
+p {
+    font-size: 22px;
+}
+
+.graph {
+    width: 500;
+    height: 350;
+}
+
+.my_graph {
+    position: absolute;
+        top: 20%;
+        left: 25%;
+}

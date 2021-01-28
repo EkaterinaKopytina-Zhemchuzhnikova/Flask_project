@@ -1,0 +1,27 @@
+{% extends "menu.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="static/css/style4.css"/>
+{% endblock %}
+
+<body>
+{% block content %}
+<p class="hello">
+    Ваши результаты анализов следующие:
+</p>
+<div class="table_container">
+    <table class="my_table">
+         <tr class="my_row">
+            {% for title in keys %}
+                <td class="title">{{ title }}</td>
+            {% endfor %}
+        </tr>
+        <tr class="my_row">
+             {% for val in values %}
+                <td class="ordinary">{{ val }}</td>
+             {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endblock %}
+</body>

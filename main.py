@@ -4,6 +4,8 @@ from data.patients_and_snils import LoginPatients
 from data.login_form import LoginForm
 from data.proposal import Proposal
 from data.search_and_show_hospitals import search, show
+from data.graphic import plot_graph
+import csv
 
 db_session.global_init("db/registry_base.sqlite")
 
@@ -36,15 +38,29 @@ def info():
     return render_template("info.html", info_text=info_about, image_hospitals="static/img/map.png")
 
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact')
 def contact_me():
     return render_template("contact.html", dep_adr=ADRESS_DEPARTMENT, dep_img="static/img/map1.png")
 
 
-@app.route('/proposal')
+@app.route('/proposal', methods=['GET', 'POST'])
 def proposal_me():
     form = Proposal()
     return render_template("register_me.html", form=form)
+
+
+@app.route('/results')
+def get_results():
+    with open('static/files/1.csv', 'r', ) as f:
+        param_dict = csv.DictReader(f, delimiter=';', quotechar='"')
+        keys = param_dict.fieldnames
+        values = [v for param in param_dict for v in param.values()]
+    return render_template("results.html", keys=keys, values=values)
+
+
+@app.route('/statistics')
+def show_statistic():
+    return render_template("statistic.html", graph="static/img/plot.png")
 
 
 @app.route('/logout')
@@ -71,6 +87,8 @@ def get_image_of_department():
 
 
 if __name__ == '__main__':
+    plot_graph()
     app.run()
     get_image_of_all_hospitals()
     get_image_of_department()
+
