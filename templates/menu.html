@@ -1,19 +1,16 @@
 {% extends "base.html" %}
 
-{% block head %}
-    <link rel="stylesheet" href="static/css/style4.css"/>
-{% endblock %}
 {% block content %}
 <body>
 <div class="navbar">
-    <a href="#home">Записи</a>
+    <a href="/home">Записи</a>
     <a href="/results">Результаты анализов</a>
     <a href="/statistics">Статистика</a>
     <a href="#">Помощь</a>
     <a href="/logout">Выход</a>
 </div>
-<p class="hello">
-    Здравствуйте, {{ user }}! Рады снова Вас видеть!
-</p>
+<main role="main" class="container">
+    {% block content_menu %}{% endblock %}
+</main>
 </body>
 {% endblock %}

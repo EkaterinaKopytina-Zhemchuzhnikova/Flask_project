@@ -10,9 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="с контактами, о сайте, связаться с нами и мзмененным базовым шаблоном">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="со статистикой посещений и результатами анализов" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +54,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611775431001</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="со статистикой посещений и результатами анализов">
+      <created>1611856142146</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611856142146</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -74,13 +79,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="С авторизацией, меню и картой" />
     <MESSAGE value="с контактами, о сайте, связаться с нами и мзмененным базовым шаблоном" />
-    <option name="LAST_COMMIT_MESSAGE" value="с контактами, о сайте, связаться с нами и мзмененным базовым шаблоном" />
+    <MESSAGE value="со статистикой посещений и результатами анализов" />
+    <option name="LAST_COMMIT_MESSAGE" value="со статистикой посещений и результатами анализов" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1611775434227">
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1611856151052">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1611775434227" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1611856151052" />
     <state x="346" y="49" key="search.everywhere.popup" timestamp="1611605196733">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

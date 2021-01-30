@@ -1,13 +1,23 @@
-{% extends "base.html" %}
+{% if not auth %}
+    {% extends "base.html" %}
 
-{% block head %}
-    <link rel="stylesheet" href="static/css/style4.css"/>
-{% endblock %}
-{% block content %}
-<body>
-<div class="my_map"><img class="map" width="500" height="350" src={{ image_hospitals }}>
-    {{ info_text }}
-  <p class="text_info">Ознакомится с доступными лечебными учреждениями можно на карте справа. Желаем удачи!</p>
-</div>
-</body>
-{% endblock %}
+    {% block content %}
+    <body>
+        <div class="my_map"><img class="map" width="500" height="350" src={{ image_hospitals }}>
+            {{ info_text }}
+            <p class="text_info">Ознакомится с доступными лечебными учреждениями можно на карте справа. Желаем удачи!</p>
+        </div>
+        </body>
+    {% endblock %}
+{% else %}
+    {% extends "menu.html" %}
+
+    {% block content_menu %}
+    <body>
+        <div class="my_map"><img class="map" width="500" height="350" src={{ image_hospitals }}>
+            {{ info_text }}
+            <p class="text_info">Ознакомится с доступными лечебными учреждениями можно на карте справа. Желаем удачи!</p>
+        </div>
+    </body>
+    {% endblock %}
+{% endif %}
