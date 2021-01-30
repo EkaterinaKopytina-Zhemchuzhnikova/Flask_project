@@ -8,7 +8,6 @@ from data.graphic import plot_graph
 import csv
 
 db_session.global_init("db/registry_base.sqlite")
-Auth = False
 # patient.patients_snils = 35061441102
 # patient.patients_fio = "Модовин Петр Иванович"
 # session.add(patient)
@@ -20,26 +19,29 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    global Auth
     form = LoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
         snils = session.query(LoginPatients).filter(LoginPatients.patients_snils == form.password.data).first()
         user_name = session.query(LoginPatients).filter(LoginPatients.patients_fio == form.username.data).first()
         if user_name and snils:
-            Auth = True
-            print(Auth)
-            return render_template('menu.html', user=user_name)
+            return redirect("/home")
         return render_template("login.html", message="Wrong login or password", form=form)
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
 
 
 @app.route('/info')
 def info():
-    print("в info", Auth)
     with open('static/files/info_file.txt', 'r', encoding="utf-8") as f:
         info_about = f.read()
-    return render_template("info.html", auth=Auth, info_text=info_about, image_hospitals="static/img/map.png")
+    return render_template("info.html", info_text=info_about, image_hospitals="static/img/map.png")
+
+
+@app.route('/info_for_login')
+def info_for_login():
+    with open('static/files/info_file.txt', 'r', encoding="utf-8") as f:
+        info_about = f.read()
+    return render_template("info_for_login.html", info_text=info_about, image_hospitals="static/img/map.png")
 
 
 @app.route('/contact')
@@ -47,22 +49,41 @@ def contact_me():
     return render_template("contact.html", dep_adr=ADRESS_DEPARTMENT, dep_img="static/img/map1.png")
 
 
+@app.route('/contact_for_login')
+def contact_me_for_login():
+    return render_template("contact_for_login.html", dep_adr=ADRESS_DEPARTMENT, dep_img="static/img/map1.png")
+
+
 @app.route('/proposal', methods=['GET', 'POST'])
 def proposal_me():
-    print("в register", Auth)
     form = Proposal()
     if request.method == 'GET':
         return render_template("register_me.html", form=form)
     elif request.method == 'POST':
         new_user = request.form['username']
         new_snils = request.form['password']
+        new_user_sex = request.form['sex']
         new_phone = request.form['telephone']
         return redirect("/register_me_thanks")
+
+
+@app.route('/refere_to_us', methods=['GET', 'POST'])
+def refere_to_us():
+    if request.method == 'GET':
+        return render_template("refer_to_us.html")
+    elif request.method == 'POST':
+        user_text_for_us = request.form['about']
+        return redirect("/refer_to_us_thanks")
 
 
 @app.route('/register_me_thanks')
 def register_me_thanks():
     return render_template("register_me_thanks.html")
+
+
+@app.route('/refere_to_us_thanks')
+def refere_to_us_thanks():
+    return render_template("refere_to_us_thanks.html")
 
 
 @app.route('/results')

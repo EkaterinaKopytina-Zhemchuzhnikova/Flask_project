@@ -6,28 +6,25 @@
         <link rel="stylesheet" href="static/css/style4.css"/>
         {% block head %}{% endblock %}
     </main>
+    <title>{{ title }}</title>
 </head>
 
 <body>
 <div class="navbar">
-    <a href="/home">Записи</a>
+    <a href="/login">Войти</a>
     <div class="dopinfo">
         <button class="dopinfobtn">Дополнительная информация
             <i class="dop_menu"></i>
         </button>
         <div class="dopinfo-content">
-            <a href="/info_for_login">О сайте</a>
-            <a href="/contact_for_login">Контакты</a>
-            <a href="/refere_to_us">Связаться с нами</a>
-            <a href="#">Помощь</a>
+            <a href="/info">О сайте</a>
+            <a href="/contact">Контакты</a>
+            <a href="/proposal">Связаться с нами</a>
         </div>
     </div>
-    <a href="/results">Результаты анализов</a>
-    <a href="/statistics">Статистика</a>
-    <a href="/logout">Выход</a>
 </div>
         <main role="main" class="container">
-            {% block content_menu %}{% endblock %}
+            {% block content %}{% endblock %}
         </main>
 </body>
 </html>

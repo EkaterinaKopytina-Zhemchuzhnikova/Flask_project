@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "authentication.html" %}
 
 {% block content %}
 <h2>Отправьте заявку на добавление в качестве пользователя</h2>
-<form action="" method="post">
+<form class="reg_me" action="" method="post">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <p>
@@ -23,6 +23,21 @@
             </p>
         {% endfor %}
     </p>
+    <div class="form-group">
+        <label for="form-check">Укажите пол</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked>
+            <label class="form-check-label" for="male">
+                Мужской
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+            <label class="form-check-label" for="female">
+                Женский
+            </label>
+        </div>
+    </div>
     <p>
         {{ form.telephone.label }}<br>
         {{ form.telephone(class="form-control", type="telephone") }}<br>
@@ -33,6 +48,5 @@
         {% endfor %}
     </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    <p>Мы обязательно свяжемся с Вами<p>
 </form>
 {% endblock %}
