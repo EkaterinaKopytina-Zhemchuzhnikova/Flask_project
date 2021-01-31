@@ -10,7 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="с исправленным меню и вводом мнения" />
+    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="исправлены ошибки css и контакты с инфо в виде таблиц" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612042684620</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="исправлены ошибки css и контакты с инфо в виде таблиц">
+      <created>1612090381063</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612090381063</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -96,13 +103,14 @@
     <MESSAGE value="со статистикой посещений и результатами анализов" />
     <MESSAGE value="с возможностью записи" />
     <MESSAGE value="с исправленным меню и вводом мнения" />
-    <option name="LAST_COMMIT_MESSAGE" value="с исправленным меню и вводом мнения" />
+    <MESSAGE value="исправлены ошибки css и контакты с инфо в виде таблиц" />
+    <option name="LAST_COMMIT_MESSAGE" value="исправлены ошибки css и контакты с инфо в виде таблиц" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1612042693956">
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1612090409571">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1612042693956" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1612090409571" />
     <state x="346" y="49" key="search.everywhere.popup" timestamp="1611605196733">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
