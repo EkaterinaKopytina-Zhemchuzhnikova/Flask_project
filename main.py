@@ -25,6 +25,7 @@ def login():
         snils = session.query(LoginPatients).filter(LoginPatients.patients_snils == form.password.data).first()
         user_name = session.query(LoginPatients).filter(LoginPatients.patients_fio == form.username.data).first()
         if user_name and snils:
+            plot_graph()
             return redirect("/home")
         return render_template("login.html", message="Wrong login or password", form=form)
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
@@ -81,9 +82,9 @@ def register_me_thanks():
     return render_template("register_me_thanks.html")
 
 
-@app.route('/refere_to_us_thanks')
-def refere_to_us_thanks():
-    return render_template("refere_to_us_thanks.html")
+@app.route('/refer_to_us_thanks')
+def refer_to_us_thanks():
+    return render_template("refer_to_us_thanks.html")
 
 
 @app.route('/results')
@@ -153,7 +154,6 @@ def get_image_of_department():
 
 
 if __name__ == '__main__':
-    plot_graph()
-    app.run()
     get_image_of_all_hospitals()
     get_image_of_department()
+    app.run()

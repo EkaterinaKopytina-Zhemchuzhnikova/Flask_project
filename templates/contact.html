@@ -2,10 +2,13 @@
 
 {% block content %}
 <body>
-<div class="my_map"><img class="map" width="500" height="350" src={{ dep_img }}>
-    <p>Уважаемый посетитель, Департамент здравоохранения Воронежской области находится по адресу
+    <table class="my_map">
+         <tr class="my_map">
+             <td class="contact_text"><p>Уважаемый посетитель, Департамент здравоохранения Воронежской области находится по адресу
         {{ dep_adr }}, телефон горячей линии 8 (473) 249-06-74 ежедневно с 08.00 до 19.30, почта <a
-                href="mailto:zdrav@govvrn.ru">zdrav@govvrn.ru</a>.</p>
-</div>
+                href="mailto:zdrav@govvrn.ru">zdrav@govvrn.ru</a>.</p></td>
+             <td><div class="my_map"><img class="map" width="500" height="400" src={{ dep_img }}></div></td>
+        </tr>
+    </table>
 </body>
 {% endblock %}

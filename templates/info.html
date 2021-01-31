@@ -2,9 +2,12 @@
 
 {% block content %}
 <body>
-    <div class="my_map"><img class="map" width="500" height="350" src={{ image_hospitals }}>
-        {{ info_text }}
-        <p class="text_info">Ознакомится с доступными лечебными учреждениями можно на карте справа. Желаем удачи!</p>
-    </div>
+    <table class="my_map">
+        <tr class="my_map">
+            <td class="text_info"><div>{{ info_text }}
+                <p>Ознакомится с доступными лечебными учреждениями можно на карте справа. Желаем удачи!</p></div></td>
+            <td><div class="my_map"><img class="map" width="500" height="350" src={{ image_hospitals }}></div></td>
+        </tr>
+    </table>>
 </body>
 {% endblock %}

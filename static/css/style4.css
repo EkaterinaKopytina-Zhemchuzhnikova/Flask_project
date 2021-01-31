@@ -9,21 +9,23 @@
     text-align: center;
     background-color: #eeeeff;
 }
-
-.map {
-    float: right; /* Выравнивание по правому краю  */
-    margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+p {
+    font-size: 20px;
 }
 
-.text_info{
+p.hello {
+    font-size: 22px;
+}
+td.contact_text, td.text_info {
     margin: 20px 0 7px 7px;
     padding: 5px;
     text-indent: 20px;
     line-height: 1.5;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
+    text-align: justify;
 }
-.my_map {
+div.my_map {
     margin: 20px 0 7px 7px;
     padding: 5px;
     text-indent: 20px;
@@ -92,7 +94,7 @@
     display: block;
 }
 
-IMG.displayed {
+img.displayed {
     display: block;
     margin-left: auto;
     margin-right: auto }
@@ -105,9 +107,6 @@ h2 {
    text-align: center;
 }
 
-p {
-    font-size: 22px;
-}
 
 .graph {
     width: 500;
