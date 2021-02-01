@@ -10,7 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="исправлены ошибки css и контакты с инфо в виде таблиц" />
+    <list default="true" id="7dde6be0-4fe7-45e1-b40e-28de008ec138" name="Default Changelist" comment="форма записи разделена на 2 блока: запись и отмена" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +82,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612090381063</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="форма записи разделена на 2 блока: запись и отмена">
+      <created>1612093236516</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1612093236516</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,13 +111,14 @@
     <MESSAGE value="с возможностью записи" />
     <MESSAGE value="с исправленным меню и вводом мнения" />
     <MESSAGE value="исправлены ошибки css и контакты с инфо в виде таблиц" />
-    <option name="LAST_COMMIT_MESSAGE" value="исправлены ошибки css и контакты с инфо в виде таблиц" />
+    <MESSAGE value="форма записи разделена на 2 блока: запись и отмена" />
+    <option name="LAST_COMMIT_MESSAGE" value="форма записи разделена на 2 блока: запись и отмена" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1612090409571">
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1612093254221">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1612090409571" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1612093254221" />
     <state x="346" y="49" key="search.everywhere.popup" timestamp="1611605196733">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

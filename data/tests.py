@@ -8,9 +8,9 @@ from .db_session import SqlAlchemyBase
 
 
 class Tests(SqlAlchemyBase, UserMixin, SerializerMixin):
-    __tablename__ = 'Tests'
+    __tablename__ = 'tests'
     patient_snils = sqlalchemy.Column(sqlalchemy.Integer,
-                                      sqlalchemy.ForeignKey("PatientsSnils.patient_snils"), primary_key=True)
+                                      sqlalchemy.ForeignKey("patients.snils"), primary_key=True)
     ready = sqlalchemy.Column(sqlalchemy.BOOLEAN)
     num_file = sqlalchemy.Column(sqlalchemy.Integer)
-    patientsnils = orm.relation('LoginPatients')
+

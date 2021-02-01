@@ -3,9 +3,9 @@
 {% block content_menu %}
 <body>
 <p class="hello">
-    Здравствуйте, ! Рады снова Вас видеть на нашем сайте!
+    Здравствуйте, {{ name }}! Рады снова Вас видеть на нашем сайте!
 </p>
-<div>
+
 <form class="record_form" method="post">
     <div class="form-group">
         <label for="eduSelect">Ваши текущие записи</label>
@@ -14,10 +14,9 @@
                 <option>{{ record }}</option>
             {% endfor %}
         </select>
-    <button type="submit" class="btn btn-primary">Отменить запись</button>
+    <button type="submit" class="btn btn-primary" name="choose_param" value="have_del">Отменить запись</button>
     </div>
-</form>
-<form class="record_form2" method="post">
+
     <div class="form-group">
         <label for="eduSelect">Выберите лечебное учреждение</label>
         <select class="form-control" id="classSelect2" name="hosp">
@@ -25,14 +24,16 @@
                 <option>{{ hosp }}</option>
             {% endfor %}
         </select>
+        <button type="submit" class="btn btn-primary" name="choose_param" value="have_hosp">Выбрать</button>
     </div>
     <div class="form-group">
         <label for="eduSelect">Выберите специальность</label>
         <select class="form-control" id="classSelect3" name="spec">
-            {% for spec in specialty %}
+            {% for spec in speciality %}
                 <option>{{ spec }}</option>
             {% endfor %}
         </select>
+        <button type="submit" class="btn btn-primary" name="choose_param" value="have_spec">Выбрать</button>
     </div>
     <div class="form-group">
         <label for="eduSelect">Выберите врача</label>
@@ -41,9 +42,8 @@
                 <option>{{ doctor }}</option>
             {% endfor %}
         </select>
+        <button type="submit" class="btn btn-primary" name="choose_param" value="have_record">Записаться</button>
     </div>
-    <button type="submit" class="btn btn-primary">Записаться</button>
 </form>
-</div>
 </body>
 {% endblock %}

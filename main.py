@@ -1,17 +1,13 @@
-from flask import Flask, render_template, redirect, request
-from data import db_session
-from data.patients_and_snils import LoginPatients
+from flask import Flask, render_template, redirect, request, url_for
 from data.login_form import LoginForm
 from data.proposal import Proposal
 from data.search_and_show_hospitals import search, show
 from data.graphic import plot_graph
 import csv
+from data.work_with_db import all_hospitals, get_specialitis, get_doctors, \
+    give_my_future_record, verification, give_hospital_adress, give_num_file_of_analize, \
+    send_refer_to_us, please_register_me
 
-db_session.global_init("db/registry_base.sqlite")
-# patient.patients_snils = 35061441102
-# patient.patients_fio = "Модовин Петр Иванович"
-# session.add(patient)
-# session.commit()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
@@ -21,14 +17,39 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        session = db_session.create_session()
-        snils = session.query(LoginPatients).filter(LoginPatients.patients_snils == form.password.data).first()
-        user_name = session.query(LoginPatients).filter(LoginPatients.patients_fio == form.username.data).first()
-        if user_name and snils:
-            plot_graph()
-            return redirect("/home")
+        user = verification(form.username.data, form.password.data)
+        if user:
+            return redirect('/home')
         return render_template("login.html", message="Wrong login or password", form=form)
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def show_record():
+    my_record = []
+    hospitals = all_hospitals()
+    if request.method == 'GET':
+        return render_template("record.html", records=my_record, hospitals=hospitals, speciality=[],
+                               doctors=[])
+    elif request.method == 'POST':
+        if request.form["choose_param"] == "have_hosp":
+            choose_hosp = request.form["hosp"]
+            specialitis = get_specialitis(choose_hosp)
+            hosp_index = hospitals.index(choose_hosp)
+            hospitals[0], hospitals[hosp_index] = hospitals[hosp_index], hospitals[0]
+            return render_template("record.html", records=my_record, hospitals=hospitals, speciality=specialitis,
+                                   doctors=[])
+        elif request.form["choose_param"] == "have_spec":
+            choose_hosp = request.form["hosp"]
+            specialitis = get_specialitis(choose_hosp)
+            choose_spec = request.form["spec"]
+            spec_index = specialitis.index(choose_spec)
+            doctors = get_doctors(hospitals[0], choose_spec)
+            specialitis[0], specialitis[spec_index] = specialitis[spec_index], specialitis[0]
+            return render_template("record.html", records=my_record, hospitals=hospitals, speciality=specialitis,
+                                   doctors=doctors)
+        elif request.form["choose_param"] == "have_record":
+            return redirect("/choose_time")
 
 
 @app.route('/info')
@@ -65,6 +86,7 @@ def proposal_me():
         new_snils = request.form['password']
         new_user_sex = request.form['sex']
         new_phone = request.form['telephone']
+        please_register_me(new_user, new_snils, new_user_sex, new_phone)
         return redirect("/register_me_thanks")
 
 
@@ -74,6 +96,7 @@ def refere_to_us():
         return render_template("refer_to_us.html")
     elif request.method == 'POST':
         user_text_for_us = request.form['about']
+        send_refer_to_us(user_text_for_us)
         return redirect("/refer_to_us_thanks")
 
 
@@ -89,7 +112,8 @@ def refer_to_us_thanks():
 
 @app.route('/results')
 def get_results():
-    with open('static/files/1.csv', 'r', ) as f:
+    num_file = give_num_file_of_analize()
+    with open(f'static/files/{num_file}.csv', 'r', ) as f:
         param_dict = csv.DictReader(f, delimiter=';', quotechar='"')
         keys = param_dict.fieldnames
         values = [v for param in param_dict for v in param.values()]
@@ -99,23 +123,6 @@ def get_results():
 @app.route('/statistics')
 def show_statistic():
     return render_template("statistic.html", graph="static/img/plot.png")
-
-
-@app.route('/home', methods=['GET', 'POST'])
-def show_record():
-    my_record = ['15 feb 2020', '20 jun 2021']
-    hospitals = [1, 2, 3, 4]
-    specialtis = ['Офтальмолог', 'Педиатр']
-    doctors = ['Врач1', 'Врач2']
-    if request.method == 'GET':
-        return render_template("record.html", records=my_record, hospitals=hospitals, specialty=specialtis,
-                               doctors=doctors)
-    elif request.method == 'POST':
-        delete_my_record = request.form['my_record']
-        choose_hosp = request.form['hosp']
-        choose_spec = request.form['spec']
-        choose_doc = request.form['doc']
-        return redirect("/choose_time")
 
 
 @app.route('/choose_time', methods=['GET', 'POST'])
@@ -136,7 +143,7 @@ def logout():
 
 
 def get_image_of_all_hospitals():
-    hospitals = ["Лиски, ул. Сеченова, 24", "Воронеж, ул. Красноармейская, 19", "Воронеж, ул. Героев Сибиряков, 37"]
+    hospitals = give_hospital_adress()
     pt_list = search(hospitals)
     map_file = "static/img/map.png"
     with open(map_file, "wb") as file:
@@ -153,7 +160,7 @@ def get_image_of_department():
         file.write(show(pt, scale="0.003,0.003").content)
 
 
-if __name__ == '__main__':
-    get_image_of_all_hospitals()
-    get_image_of_department()
-    app.run()
+get_image_of_all_hospitals()
+get_image_of_department()
+plot_graph()
+app.run()
