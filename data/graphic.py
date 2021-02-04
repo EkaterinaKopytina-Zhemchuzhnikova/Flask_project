@@ -1,19 +1,17 @@
 import matplotlib.pyplot as plt
+from data.work_with_db import count_data_for_graph
 
 
 def plot_graph():
-    left = [1, 2, 3, 4, 5]
-    # heights of bars
-    height = [10, 24, 36, 40, 5]
-    # labels for bars
-    tick_label = ['one', 'two', 'three', 'four', 'five']
-    # plotting a bar chart
-    plt.bar(left, height, tick_label=tick_label, width=0.8, color=['#4682B4', '#B0C4DE'])
-    # naming the y-axis
+    left, height = [], []
+    for k, v in count_data_for_graph().items():
+        left.append(k)
+        height.append(v)
+    month = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь',
+             'декабрь']
+    tick_label = [month[mon - 1] for mon in left]
+    plt.bar(left, height, tick_label=tick_label, color=['#4682B4', '#B0C4DE'])
     plt.ylabel('Количество посещений')
-    # naming the x-axis
     plt.xlabel('Месяц')
-    # plot title
     plt.title('Ваша статистика посещаемости по месяцам')
     plt.savefig("static/img/plot.png")
-

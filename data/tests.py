@@ -9,8 +9,9 @@ from .db_session import SqlAlchemyBase
 
 class Tests(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'tests'
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     patient_snils = sqlalchemy.Column(sqlalchemy.Integer,
-                                      sqlalchemy.ForeignKey("patients.snils"), primary_key=True)
+                                      sqlalchemy.ForeignKey("patients.snils"))
     ready = sqlalchemy.Column(sqlalchemy.BOOLEAN)
     num_file = sqlalchemy.Column(sqlalchemy.Integer)
 

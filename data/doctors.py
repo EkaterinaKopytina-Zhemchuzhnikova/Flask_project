@@ -6,8 +6,8 @@ from sqlalchemy_serializer import SerializerMixin
 
 class Doctors(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'doctors'
-    docid = sqlalchemy.Column(sqlalchemy.Integer,
+    doc_id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True)
-    doctorsname = sqlalchemy.Column(sqlalchemy.String)
+    doctor_fio = sqlalchemy.Column(sqlalchemy.String)
     direction = sqlalchemy.Column(sqlalchemy.String)
-    hospid = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("hospitals.id"))
+    hosp_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("hospitals.id"))

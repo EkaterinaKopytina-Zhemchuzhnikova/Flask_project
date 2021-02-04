@@ -4,9 +4,11 @@ from data.proposal import Proposal
 from data.search_and_show_hospitals import search, show
 from data.graphic import plot_graph
 import csv
+from data.validation import validation_user_fio, validation_user_snils
 from data.work_with_db import all_hospitals, get_specialitis, get_doctors, \
     give_my_future_record, verification, give_hospital_adress, give_num_file_of_analize, \
-    send_refer_to_us, please_register_me
+    send_refer_to_us, please_register_me, delete_future_record, get_date, get_time, record_me_to_doctor, \
+    get_choose_doc_id, get_user_name
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -17,38 +19,52 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = verification(form.username.data, form.password.data)
-        if user:
-            return redirect('/home')
+        procced_user_fio = validation_user_fio(form.username.data)
+        procced_user_snils = validation_user_snils(form.password.data)
+        if procced_user_fio and procced_user_snils:
+            if verification(procced_user_fio, procced_user_snils):
+                return redirect('/home')
+            return render_template("login.html", message="Wrong login or password", form=form)
         return render_template("login.html", message="Wrong login or password", form=form)
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def show_record():
-    my_record = []
+    my_record = give_my_future_record()
     hospitals = all_hospitals()
+    user_name = get_user_name()
     if request.method == 'GET':
-        return render_template("record.html", records=my_record, hospitals=hospitals, speciality=[],
+        return render_template("record.html", name=user_name, records=my_record, hospitals=hospitals, speciality=[],
                                doctors=[])
     elif request.method == 'POST':
-        if request.form["choose_param"] == "have_hosp":
+        if request.form["choose_param"] == "have_del":
+            del_my_record = request.form["my_record"]
+            delete_future_record(del_my_record)
+            return render_template("record.html", name=user_name, records=give_my_future_record(), hospitals=hospitals,
+                                   speciality=[],
+                                   doctors=[])
+        elif request.form["choose_param"] == "have_hosp":
             choose_hosp = request.form["hosp"]
             specialitis = get_specialitis(choose_hosp)
             hosp_index = hospitals.index(choose_hosp)
             hospitals[0], hospitals[hosp_index] = hospitals[hosp_index], hospitals[0]
-            return render_template("record.html", records=my_record, hospitals=hospitals, speciality=specialitis,
+            return render_template("record.html", name=user_name, records=my_record, hospitals=hospitals,
+                                   speciality=specialitis,
                                    doctors=[])
         elif request.form["choose_param"] == "have_spec":
             choose_hosp = request.form["hosp"]
             specialitis = get_specialitis(choose_hosp)
             choose_spec = request.form["spec"]
             spec_index = specialitis.index(choose_spec)
-            doctors = get_doctors(hospitals[0], choose_spec)
+            doctors = get_doctors(choose_spec)
             specialitis[0], specialitis[spec_index] = specialitis[spec_index], specialitis[0]
-            return render_template("record.html", records=my_record, hospitals=hospitals, speciality=specialitis,
+            return render_template("record.html", name=user_name, records=my_record, hospitals=hospitals,
+                                   speciality=specialitis,
                                    doctors=doctors)
         elif request.form["choose_param"] == "have_record":
+            choose_doc = request.form["doc"]
+            get_choose_doc_id(choose_doc)
             return redirect("/choose_time")
 
 
@@ -122,19 +138,27 @@ def get_results():
 
 @app.route('/statistics')
 def show_statistic():
+    plot_graph()
     return render_template("statistic.html", graph="static/img/plot.png")
 
 
 @app.route('/choose_time', methods=['GET', 'POST'])
 def choose_time():
+    dates = get_date()
     if request.method == 'GET':
-        dates = ['16.05', '18.06']
-        time = ['15.30']
-        return render_template("choose_time_for_record.html", dates=dates, time=time)
+        return render_template("choose_time_for_record.html", dates=dates, time=[])
     elif request.method == 'POST':
-        choose_date = request.form['date']
-        choose_time = request.form['time']
-        return render_template("choose_time_for_record_thanks.html")
+        if request.form["choose_param"] == "have_date":
+            choose_date = request.form['date']
+            # if len(dates) > 1:
+            #     date_index = dates.index(choose_date)
+            #     dates[0], dates[date_index] = dates[date_index], dates[0]
+            time = get_time(choose_date)
+            return render_template("choose_time_for_record.html", dates=dates, time=time)
+        elif request.form["choose_param"] == "have_time":
+            choose_time = request.form['time']
+            record_me_to_doctor(choose_time)
+            return render_template("choose_time_for_record_thanks.html")
 
 
 @app.route('/logout')
@@ -162,5 +186,4 @@ def get_image_of_department():
 
 get_image_of_all_hospitals()
 get_image_of_department()
-plot_graph()
 app.run()

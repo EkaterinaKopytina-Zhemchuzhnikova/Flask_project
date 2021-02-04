@@ -6,6 +6,6 @@ from sqlalchemy_serializer import SerializerMixin
 
 class Refer(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'refer'
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True) # TODO: сделать автоинкрементной
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     snils = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("patients.snils"))
     refer_text = sqlalchemy.Column(sqlalchemy.TEXT)

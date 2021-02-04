@@ -10,7 +10,7 @@ from .db_session import SqlAlchemyBase
 class Reception(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'reception'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    docid = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("doctors.docid"))
-    datework = sqlalchemy.Column(sqlalchemy.Date)
-    time = sqlalchemy.Column(sqlalchemy.Time)
+    doc_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("doctors.doc_id"))
+    date_work = sqlalchemy.Column(sqlalchemy.DATE)
+    time = sqlalchemy.Column(sqlalchemy.String)
     free = sqlalchemy.Column(sqlalchemy.BOOLEAN)

@@ -6,7 +6,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 class Register_me(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'register_me'
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True) # TODO: autoincrement
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     fio = sqlalchemy.Column(sqlalchemy.String)
     snils = sqlalchemy.Column(sqlalchemy.Integer)
     phone = sqlalchemy.Column(sqlalchemy.String)

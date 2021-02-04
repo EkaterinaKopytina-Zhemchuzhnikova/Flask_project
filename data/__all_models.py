@@ -1,4 +1,4 @@
-from . import patients_and_snils
+from . import patients
 from . import doctors
 from . import hospitals
 from . import tests
