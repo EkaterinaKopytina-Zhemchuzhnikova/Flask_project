@@ -142,6 +142,14 @@ def show_statistic():
     return render_template("statistic.html", graph="static/img/plot.png")
 
 
+@app.route('/help')
+def help_me():
+    user = get_user_name()
+    with open('static/files/help.txt', 'r', encoding="utf-8") as f:
+        help_text = f.read().split(";")
+    return render_template("help.html", help_text=help_text, hello=user, image_medcine="static/img/medcine.png")
+
+
 @app.route('/choose_time', methods=['GET', 'POST'])
 def choose_time():
     dates = get_date()
@@ -157,8 +165,8 @@ def choose_time():
             return render_template("choose_time_for_record.html", dates=dates, time=time)
         elif request.form["choose_param"] == "have_time":
             choose_time = request.form['time']
-            record_me_to_doctor(choose_time)
-            return render_template("choose_time_for_record_thanks.html")
+            message = record_me_to_doctor(choose_time)
+            return render_template("choose_time_for_record_thanks.html", message=message)
 
 
 @app.route('/logout')

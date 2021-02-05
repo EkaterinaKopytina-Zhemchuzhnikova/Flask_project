@@ -88,6 +88,8 @@ def get_choose_doc_id(doc_fio):
                                            Doctors.doctor_fio == doc_fio).first()
     choose_doc_id = se.get('choose_doc_id', None)
     se['choose_doc_id'] = doctor.doc_id
+    choose_doc_name = se.get('choose_doc_name', None)
+    se['choose_doc_name'] = doctor.doctor_fio
 
 
 def get_date():
@@ -106,10 +108,18 @@ def get_time(data):
 
 
 def record_me_to_doctor(time):
-    new_record = RegistredPatients(snils=se['patient_snils'], patient_fio=se['patient_name'],
-                                   date=se['choose_date'], time=time, doc_id=se['choose_doc_id'])
-    session.add(new_record)
-    session.commit()
+    verif_old_record = session.query(RegistredPatients).filter(RegistredPatients.date == se['choose_date'],
+                                                               RegistredPatients.doc_id == se['choose_doc_id'],
+                                                               RegistredPatients.snils == se['patient_snils']).first()
+
+    if not verif_old_record:
+        new_record = RegistredPatients(snils=se['patient_snils'], patient_fio=se['patient_name'],
+                                       date=se['choose_date'], time=time, doc_id=se['choose_doc_id'])
+        session.add(new_record)
+        session.commit()
+        return f'Спасибо, {se["patient_name"]}! Вы записаны на прием к {se["choose_doc_name"]} {se["choose_date"]} в {time}!'
+    else:
+        return 'Вы уже записаны к выбранному врачу на указанную дату! Выберите иную дату'
 
 
 def give_num_file_of_analize():

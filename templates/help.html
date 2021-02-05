@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content_menu %}
+<body>
+<div><h1>Рады Вам помочь, {{ hello }}! Ознакомьтесь с информацией ниже!</h1></div>
+    <table class="my_map">
+        <tr class="my_map">
+            <td class="text_info">
+                <div>
+                    <ul>
+                        {% for text in help_text %}
+                        <li><p>{{ text }}</p></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </td>
+            <td><div class="my_map"><img class="map" width="500" height="350" src={{ image_medcine }}></div></td>
+        </tr>
+    </table>>
+</body>
+{% endblock %}
