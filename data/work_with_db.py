@@ -9,6 +9,7 @@ from data.refere import Refer
 from data.register_me import Register_me
 import datetime as dt
 from flask import session as se
+import datetime as dt
 
 db_session.global_init("db/registry_base.sqlite")
 session = db_session.create_session()
@@ -46,6 +47,13 @@ def delete_future_record(record):
             if doc.doc_id == data.doc_id:
                 session.delete(data)
                 session.commit()
+
+    data = session.query(Reception).filter(Reception.doc_id == se['choose_doc_id'],
+                                           Reception.date_work == rec_date,
+                                           Reception.time == rec_time,
+                                           Reception.free == 0).first()
+    data.free = 1
+    session.commit()
 
 
 def count_data_for_graph():
@@ -113,9 +121,16 @@ def record_me_to_doctor(time):
                                                                RegistredPatients.snils == se['patient_snils']).first()
 
     if not verif_old_record:
+        year, mon, date = map(int, se['choose_date'].split('-'))
         new_record = RegistredPatients(snils=se['patient_snils'], patient_fio=se['patient_name'],
-                                       date=se['choose_date'], time=time, doc_id=se['choose_doc_id'])
+                                       date=dt.date(year, mon, date), time=time, doc_id=se['choose_doc_id'])
         session.add(new_record)
+        session.commit()
+        data = session.query(Reception).filter(Reception.doc_id == se['choose_doc_id'],
+                                               Reception.date_work == dt.date(year, mon, date),
+                                               Reception.time == time,
+                                               Reception.free == 1).first()
+        data.free = 0
         session.commit()
         return f'Спасибо, {se["patient_name"]}! Вы записаны на прием к {se["choose_doc_name"]} {se["choose_date"]} в {time}!'
     else:

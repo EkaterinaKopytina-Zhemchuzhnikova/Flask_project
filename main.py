@@ -1,14 +1,15 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request
 from data.login_form import LoginForm
 from data.proposal import Proposal
 from data.search_and_show_hospitals import search, show
 from data.graphic import plot_graph
 import csv
-from data.validation import validation_user_fio, validation_user_snils
+from data.validation import validation_user_fio, validation_user_snils, validation_user_phone
 from data.work_with_db import all_hospitals, get_specialitis, get_doctors, \
     give_my_future_record, verification, give_hospital_adress, give_num_file_of_analize, \
     send_refer_to_us, please_register_me, delete_future_record, get_date, get_time, record_me_to_doctor, \
     get_choose_doc_id, get_user_name
+import datetime as dt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -44,6 +45,7 @@ def show_record():
             return render_template("record.html", name=user_name, records=give_my_future_record(), hospitals=hospitals,
                                    speciality=[],
                                    doctors=[])
+
         elif request.form["choose_param"] == "have_hosp":
             choose_hosp = request.form["hosp"]
             specialitis = get_specialitis(choose_hosp)
@@ -99,11 +101,16 @@ def proposal_me():
         return render_template("register_me.html", form=form)
     elif request.method == 'POST':
         new_user = request.form['username']
+        valid_fio = validation_user_fio(new_user)
         new_snils = request.form['password']
+        valid_snils = validation_user_snils(new_snils)
         new_user_sex = request.form['sex']
         new_phone = request.form['telephone']
-        please_register_me(new_user, new_snils, new_user_sex, new_phone)
-        return redirect("/register_me_thanks")
+        valid_phone = validation_user_phone(new_phone)
+        if valid_fio and valid_snils and valid_phone:
+            please_register_me(valid_fio, int(valid_snils), new_user_sex, new_phone)
+            return redirect("/register_me_thanks")
+        return render_template("register_me.html", message="Wrong data", form=form)
 
 
 @app.route('/refere_to_us', methods=['GET', 'POST'])
@@ -158,9 +165,10 @@ def choose_time():
     elif request.method == 'POST':
         if request.form["choose_param"] == "have_date":
             choose_date = request.form['date']
-            # if len(dates) > 1:
-            #     date_index = dates.index(choose_date)
-            #     dates[0], dates[date_index] = dates[date_index], dates[0]
+            if len(dates) > 1:
+                year, mon, date = map(int, choose_date.split('-'))
+                date_index = dates.index(dt.date(year, mon, date))
+                dates[0], dates[date_index] = dates[date_index], dates[0]
             time = get_time(choose_date)
             return render_template("choose_time_for_record.html", dates=dates, time=time)
         elif request.form["choose_param"] == "have_time":

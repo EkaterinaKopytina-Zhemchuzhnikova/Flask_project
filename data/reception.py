@@ -11,6 +11,6 @@ class Reception(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'reception'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     doc_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("doctors.doc_id"))
-    date_work = sqlalchemy.Column(sqlalchemy.DATE)
+    date_work = sqlalchemy.Column(sqlalchemy.Date)
     time = sqlalchemy.Column(sqlalchemy.String)
     free = sqlalchemy.Column(sqlalchemy.BOOLEAN)
