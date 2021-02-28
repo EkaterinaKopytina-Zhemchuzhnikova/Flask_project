@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request
-from data.login_form import LoginForm
-from data.proposal import Proposal
+from forms.login_form import LoginForm
+from forms.proposal import Proposal
 from data.search_and_show_hospitals import search, show
 from data.graphic import plot_graph
 import csv
@@ -200,6 +200,11 @@ def get_image_of_department():
         file.write(show(pt, scale="0.003,0.003").content)
 
 
-get_image_of_all_hospitals()
-get_image_of_department()
-app.run()
+def main():
+    get_image_of_all_hospitals()
+    get_image_of_department()
+    app.run()
+
+
+if __name__ == '__main__':
+    main()
