@@ -15,6 +15,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
+@app.errorhandler(400)
+def not_found(error):
+    return render_template("error.html", message="Извините, указанных Вами данных не найдено")
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,8 +30,8 @@ def login():
         if procced_user_fio and procced_user_snils:
             if verification(procced_user_fio, procced_user_snils):
                 return redirect('/home')
-            return render_template("login.html", message="Wrong login or password", form=form)
-        return render_template("login.html", message="Wrong login or password", form=form)
+            return render_template("login.html", message="Неверный логин или пароль", form=form)
+        return render_template("login.html", message="Неверный логин или пароль", form=form)
     return render_template("login.html", title='Электронная регистратура Воронежской области', form=form)
 
 
@@ -110,7 +115,7 @@ def proposal_me():
         if valid_fio and valid_snils and valid_phone:
             please_register_me(valid_fio, int(valid_snils), new_user_sex, new_phone)
             return redirect("/register_me_thanks")
-        return render_template("register_me.html", message="Wrong data", form=form)
+        return render_template("register_me.html", message="Неверно введены данные", form=form)
 
 
 @app.route('/refere_to_us', methods=['GET', 'POST'])
